@@ -145,6 +145,10 @@
     <script src="{{asset('build/assets/js/jquery-3.6.2.min.js')}}"></script>
     <script src="{{asset('build/assets/js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        {{-- <script src="{{asset('build/assets/js/chart-area-demo.js')}}"></script>
+        <script src="{{asset('build/assets/js/chart-bar-demo.js')}}"></script> --}}
+
     <script>
         $(document).ready(function () {
             $.ajaxSetup({
