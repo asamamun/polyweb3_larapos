@@ -35,9 +35,28 @@ $sd = date("d",strtotime("last month"));
 ->groupBy('cyear')
 ->groupBy('monthDay')
 ->get();
-// dd($salesData);
+
+// $profitData = Saledetail::with('product')->whereBetween('created_at', [Carbon::createFromDate($sy, $sm, $sd), Carbon::createFromDate(date("Y"), date("m"),date("d"))]);
+$profitData = Saledetail::with('product')
+// ->selectRaw('YEAR(created_at) cyear,DAYOFMONTH(created_at) monthDay,product.unitprice,product.saleprice')
+// ->groupBy('cyear')
+// ->groupBy('monthDay')
+->get();
+// dd($profitData);
+$profitArr = [];
+$profit = 0;
+foreach($profitData as $pds){
+    // dd($pds);
+    $k = date('Y-m-d',strtotime($pds->created_at));
+    if(!array_key_exists($k,$profitArr)){$profitArr[$k] = 0;}    
+        $profit = ($pds->product->saleprice - $pds->product->unitprice) * $pds->quantity;
+        $profitArr[$k] += $profit;
+}
+// dd($profitArr);
+
 $salesDataArr = [];
 foreach($salesData as $s){
+    // $salesDataArr[$s['cyear'].'-'.$s['monthDay']] = $s['total'];
     $salesDataArr[$s['monthDay']] = $s['total'];
 } 
 // dd($salesDataArr);
@@ -50,7 +69,8 @@ foreach($salesData as $s){
         'totalPurchase',
         'totalItemsSold',
         'totalItemsPurchased',
-        'salesDataArr'
+        'salesDataArr',
+        'profitArr'
     ));
    }
 }

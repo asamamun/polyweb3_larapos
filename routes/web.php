@@ -28,7 +28,7 @@ use App\Http\Controllers\DashboardController;
 */
 Route::get('/', [FrontController::class, 'index']);
 
-Route::get('/catagory/{id}', [FrontController::class, 'catproducts']);
+Route::get('/getcatagory/{id}', [FrontController::class, 'catproducts']);
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::Resource('/customer', CustomerController::class);
     Route::Resource('/product', ProductController::class);
     Route::Resource('/sale', SaleController::class);
+    Route::get("/allsales",[SaleController::class, 'allsales']);
     Route::Resource('/purchase', PurchaseController::class);
     Route::get("/invoice/{id}",[SaleController::class, 'invoice']);
     Route::get("/pinvoice/{id}",[PurchaseController::class, 'invoice']);

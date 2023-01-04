@@ -114,7 +114,9 @@ class PurchaseController extends Controller
                     $pd->price = $p->saleprice;
                     $pd->discount = $p->discount;
                     $s->purchasedetails()->save($pd);
-                    //deduct quantity from product table
+                    //add quantity to product table
+                    $p->quantity = $p->quantity + $qtys[$i];
+                    $p->save();
                 }
         }
         return response()->json(['purchase'=>$s->id]);

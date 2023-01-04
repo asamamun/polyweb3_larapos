@@ -67,7 +67,7 @@
           </nav>
         {{-- category --}}
         @foreach ($cats as $cat)
-            <a class="btn btn-outline-dark mt-3" href="{{url('catagory/'.$cat->id)}}">{{$cat->name}}</a>
+            <a class="btn btn-outline-dark mt-3" href="{{url('getcatagory/'.$cat->id)}}">{{$cat->name}}</a>
         @endforeach
         {{-- category end --}}
         <hr>

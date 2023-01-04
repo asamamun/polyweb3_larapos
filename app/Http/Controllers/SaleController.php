@@ -87,6 +87,10 @@ class SaleController extends Controller
     {
         //
     }
+    public function allsales(){
+        $sales = Sale::paginate(10);
+        return view("sale.all")->with("sales", $sales);
+    }
 
     public function checkout(Request $request){
         //return response()->json($request->all());
@@ -106,9 +110,12 @@ class SaleController extends Controller
                     $sd = new Saledetail();
                     $sd->product_id = $ids[$i];
                     $sd->quantity = $qtys[$i];
+                    
                     $sd->price = $p->saleprice;
                     $sd->discount = $p->discount;
                     $s->saledetails()->save($sd);
+                    $p->quantity = $p->quantity - $qtys[$i];
+                    $p->save();
                     //deduct quantity from product table
                 }
         }
